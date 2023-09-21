@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BankSystem;
+using static tp3._5.CreateAccount;
 
 namespace tp3._5
 {
@@ -65,7 +66,6 @@ namespace tp3._5
                         break;
 
                     default:
-                        Console.Clear();
                         Console.WriteLine("Invalid option.");
                         Console.WriteLine("Press any key to return to the main menu.");
                         Console.ReadKey();
@@ -95,45 +95,18 @@ namespace tp3._5
                 return;
             }
 
-            decimal balance = 0;
-            bool validInput = false;
-            do
-            {
-                Console.WriteLine("Enter the current balance:");
-                try
-                {
-                    balance = decimal.Parse(Console.ReadLine());
-                    validInput = true;
-                }
-                catch (FormatException)
-                {
-                    Console.WriteLine("Invalid input. Please enter a valid decimal value.");
-                }
-            } while (!validInput);
-
-            BaseAccount account;
             switch (input)
             {
                 case "1":
-                    Console.Clear();
-                    account = new CheckingAccount(balance);
-                    _accountsList.Add(account);
-                    input = "";
+                    CreateCheckingAccount(_accountsList);
                     break;
                 case "2":
-                    Console.Clear();
-                    account = new CryptoAccount(balance);
-                    _accountsList.Add(CreateCryptoAccount());
-                    input = "";
+                    CreateCryptoAccount(_accountsList);
                     break;
                 case "3":
-                    Console.Clear();
-                    account = new InternationalAccount(balance);
-                    _accountsList.Add(account);
-                    input = "";
+                    CreateInternationalAccount(_accountsList);
                     break;
                 default:
-                    Console.Clear();
                     Console.WriteLine("Invalid option.");
                     Console.WriteLine("Press any key to return to the main menu.");
                     Console.ReadKey();
@@ -142,4 +115,5 @@ namespace tp3._5
                     return;
             }
         }
+    }
 }
