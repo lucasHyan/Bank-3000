@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BankSystem;
+using ClientSystem;
 using static tp3._5.CreateAccount;
 
 namespace tp3._5
@@ -35,7 +36,9 @@ namespace tp3._5
                 Console.WriteLine("Choose an option:");
                 Console.WriteLine("1. Create an account");
                 Console.WriteLine("2. Show Fees and Balance");
-                Console.WriteLine("3. Exit");
+                Console.WriteLine("3. Read Account File");
+                Console.WriteLine("4. Create Account File");
+                Console.WriteLine("5. Exit");
 
                 input = Console.ReadLine();
 
@@ -57,7 +60,16 @@ namespace tp3._5
                         Console.Clear();
                         return;
 
-                    case "3":
+                        case "3":
+                        ArchiveManager.LoadClients();
+                        ArchiveManager.WriteClients();
+                        Console.ReadKey();
+                        Console.Clear();
+                        Console.WriteLine(logo);
+                        break;
+                        
+
+                    case "5":
                         Console.Clear();
                         Console.WriteLine("Exiting...");
                         Console.WriteLine("Press any key to exit.");

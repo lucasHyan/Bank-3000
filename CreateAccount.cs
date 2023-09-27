@@ -94,10 +94,10 @@ namespace tp3._5
                         balance = decimal.Parse(input);
                         validInput = true;
                     }
-                    else
-                    {
+                    
+                    
                         Console.WriteLine("Invalid input. Please enter a valid decimal value.");
-                    }
+                    
                 }
                 catch (FormatException)
                 {

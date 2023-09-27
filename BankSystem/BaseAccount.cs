@@ -8,9 +8,9 @@ namespace BankSystem
 {
     internal abstract class BaseAccount
     {
-        protected decimal _exchangeRate = 4M;
-        protected decimal _feeCheckingAccount = 0.015M;
-        protected decimal _feeInternationalAccount = 0.025M;
+        internal decimal _exchangeRate = 4M;
+        internal decimal _feeCheckingAccount = 0.015M;
+        internal decimal _feeInternationalAccount = 0.025M;
         public virtual decimal CurrentBalance { get; protected set; }
 
         public BaseAccount(decimal currentBalance)
