@@ -28,6 +28,7 @@ namespace tp3._5
         public static List<BaseAccount> _accountsList = new List<BaseAccount>();
         public static void ShowMainMenu()
         {
+            FeeSystem feeSystem = new FeeSystem();
 
             string input;
             do
@@ -52,7 +53,6 @@ namespace tp3._5
                     case "2":
                         Console.Clear();
                         Console.WriteLine(logo);
-                        FeeSystem feeSystem = new FeeSystem();
                         feeSystem.CalculateTotalFeesAndBalance(_accountsList);
                         Console.WriteLine(feeSystem.ToString());
                         Console.WriteLine("Press any key to return to the main menu.");
@@ -62,7 +62,7 @@ namespace tp3._5
 
                         case "3":
                         ArchiveManager.LoadClients();
-                        ArchiveManager.WriteClients();
+                        feeSystem.CalculateClientBalance(ArchiveManager.clients, ArchiveManager.GenerateConsoleLogSuccess, ArchiveManager.WriteClients);
                         Console.ReadKey();
                         Console.Clear();
                         Console.WriteLine(logo);

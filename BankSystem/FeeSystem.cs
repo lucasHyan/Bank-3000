@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ClientSystem;
+using tp3._5;
 
 namespace BankSystem
 {
@@ -12,9 +13,8 @@ namespace BankSystem
     {
         private decimal totalValueAccount;
         private decimal totalValueFee;
-        public event Action<string, decimal, decimal> CreateAccountComplete;
+        public event Action<string, decimal, decimal> CreateClientArchive;
         public Action<string> callback;
-
 
         public void CalculateTotalFeesAndBalance(List<BaseAccount> accounts)
         {
@@ -33,22 +33,24 @@ namespace BankSystem
             }
         }
 
-        public decimal CalculateClientBalance(List<Client> accounts,
-        Action<string> callback)
+        public void CalculateClientBalance(List<Client> accounts,
+        Action<string> callback,
+        Action<string, decimal, decimal> CreateClientArchive)
         {
-
-            foreach (BaseAccount account in accounts)
+            foreach (Client account in accounts)
             {
                 decimal totalFee = 0m;
                 decimal totalValueAccount = 0m;
 
-                totalFee += account.CurrentBalance * account._feeCheckingAccount;
-                totalFee += account.CurrentBalance * account._feeInternationalAccount;
-            }
+                totalFee += account.Calculate();
+                totalValueAccount += account.CurrentBalance;
 
-            return totalValueAccount;
+                callback(account.Cpf);
+                CreateClientArchive?.Invoke(account.Cpf, totalValueAccount, totalFee);
+
+            }
         }
-            public override string ToString()
+        public override string ToString()
         {
             decimal balanceAfterFee = this.totalValueAccount - this.totalValueFee;
 

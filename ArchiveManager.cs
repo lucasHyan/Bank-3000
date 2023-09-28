@@ -9,7 +9,7 @@ namespace tp3._5
     public class ArchiveManager
     {
         private static string[]? lines;
-        private static List<Client>? clients;
+        internal static List<Client>? clients;
 
         new FeeSystem feeSystem = new FeeSystem();
 
@@ -29,21 +29,26 @@ namespace tp3._5
             }).ToList();
         }
 
-        public static void WriteClients()
+        public static void WriteClients(string cpf, decimal balance, decimal fee)
         {
             if (clients != null)
             {
                 foreach (Client client in clients)
                 {
-                    string archive = $"{Environment.CurrentDirectory}\\{client.Cpf}.txt";
+                    string archive = $"{Environment.CurrentDirectory}\\{cpf}.txt";
                     if (!File.Exists(archive))
                     {
                         File.Create(archive).Close();
                     }
-                    
-                    File.WriteAllLines(archive, new string[] { client.ToString() });
+
+                    File.WriteAllLines(archive, new string[] { $"{balance}|{fee}" });
                 }
             }
+        }
+
+        public static void GenerateConsoleLogSuccess(string cpf)
+        {
+            Console.WriteLine($"Arquivo gerado para o cpf {cpf} criado com sucesso!");
         }
 
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,8 @@ namespace ClientSystem
         public decimal InternationalAccount { get; set; }
         public decimal CryptoAccount { get; set; }
 
+
+
         public Client(string cpf, string name, decimal checkingAccount, decimal internationalAccount, decimal cryptoAccount)
             : base(checkingAccount)
         {
@@ -29,14 +32,17 @@ namespace ClientSystem
         {
             decimal totalFee = 0m;
 
-            totalFee += CurrentBalance * _feeCheckingAccount;
-            totalFee += CurrentBalance * _feeInternationalAccount;
+            totalFee += CheckingAccount * _feeCheckingAccount;
+            totalFee += InternationalAccount * _feeInternationalAccount;
 
             return totalFee;
         }
-
-        public override string ToString()
-            => $"{this.CurrentBalance}|{Calculate()}";
-        
+        public override decimal CurrentBalance
+        {
+            get => InternationalAccount * _exchangeRate
+            + CryptoAccount * _exchangeRate + CheckingAccount;
+            protected set { }
+        }
     }
 }
+
