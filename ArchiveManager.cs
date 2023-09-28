@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using BankSystem;
 using ClientSystem;
@@ -8,6 +9,7 @@ namespace tp3._5
 {
     public class ArchiveManager
     {
+        public static CultureInfo ptBRCultureInfo = CultureInfo.CreateSpecificCulture("pt-BR");
         private static string[]? lines;
         internal static List<Client>? clients;
 
@@ -22,9 +24,9 @@ namespace tp3._5
                 return new Client(
                     values[0],
                     values[1],
-                    decimal.Parse(values[2]),
-                    decimal.Parse(values[3]),
-                    decimal.Parse(values[4])
+                    decimal.Parse(values[2], ptBRCultureInfo),
+            decimal.Parse(values[3], ptBRCultureInfo),
+            decimal.Parse(values[4], ptBRCultureInfo)
                 );
             }).ToList();
         }
