@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BankSystem;
+using ClientSystem;
 using static tp3._5.CreateAccount;
 
 namespace tp3._5
@@ -27,6 +28,7 @@ namespace tp3._5
         public static List<BaseAccount> _accountsList = new List<BaseAccount>();
         public static void ShowMainMenu()
         {
+            FeeSystem feeSystem = new FeeSystem();
 
             string input;
             do
@@ -35,7 +37,8 @@ namespace tp3._5
                 Console.WriteLine("Choose an option:");
                 Console.WriteLine("1. Create an account");
                 Console.WriteLine("2. Show Fees and Balance");
-                Console.WriteLine("3. Exit");
+                Console.WriteLine("3. Read Account File");
+                Console.WriteLine("4. Exit");
 
                 input = Console.ReadLine();
 
@@ -49,7 +52,6 @@ namespace tp3._5
                     case "2":
                         Console.Clear();
                         Console.WriteLine(logo);
-                        FeeSystem feeSystem = new FeeSystem();
                         feeSystem.CalculateTotalFeesAndBalance(_accountsList);
                         Console.WriteLine(feeSystem.ToString());
                         Console.WriteLine("Press any key to return to the main menu.");
@@ -58,6 +60,15 @@ namespace tp3._5
                         return;
 
                     case "3":
+                        ArchiveManager.LoadClients();
+                        feeSystem.CalculateClientBalance(ArchiveManager.clients,
+                         ArchiveManager.WriteClients);
+                        Console.ReadKey();
+                        Console.Clear();
+                        break;
+
+
+                    case "4":
                         Console.Clear();
                         Console.WriteLine("Exiting...");
                         Console.WriteLine("Press any key to exit.");

@@ -4,6 +4,8 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ClientSystem;
+using tp3._5;
 
 namespace BankSystem
 {
@@ -11,11 +13,11 @@ namespace BankSystem
     {
         private decimal totalValueAccount;
         private decimal totalValueFee;
-
+        public event Action<string, decimal, decimal> CreateClientArchive;
 
         public void CalculateTotalFeesAndBalance(List<BaseAccount> accounts)
         {
-            foreach (var account in accounts)
+            foreach (BaseAccount account in accounts)
             {
                 if (account is IFee)
                 {
@@ -25,19 +27,35 @@ namespace BankSystem
                 }
                 else if (account is InternationalAccount || account is CryptoAccount)
                 {
-                 totalValueAccount += account.CurrentBalance;
+                    totalValueAccount += account.CurrentBalance;
                 }
+            }
+        }
+
+        public void CalculateClientBalance(List<Client> accounts,
+        Action<string, decimal, decimal> CreateClientArchive)
+        {
+            foreach (Client account in accounts)
+            {
+                decimal totalFee = 0m;
+                decimal totalValueAccount = 0m;
+
+                totalFee += account.Calculate();
+                totalValueAccount += account.CurrentBalance;
+
+                CreateClientArchive?.Invoke(account.Cpf, totalValueAccount, totalFee);
+
             }
         }
         public override string ToString()
         {
-            decimal balanceAfterFee = totalValueAccount - totalValueFee;
+            decimal balanceAfterFee = this.totalValueAccount - this.totalValueFee;
 
             CultureInfo ptBRCultureInfo = CultureInfo.CreateSpecificCulture("pt-BR");
 
-            return "The Total Balance is " + totalValueAccount.ToString("C", ptBRCultureInfo) +
-            " and the total fee is " + totalValueFee.ToString("C", ptBRCultureInfo) +
-            ". After the fee your balance is " + balanceAfterFee.ToString("C2", ptBRCultureInfo) + ".";
+            return "The Total Balance is " + this.totalValueAccount.ToString("C", ptBRCultureInfo) +
+                " and the total fee is " + this.totalValueFee.ToString("C", ptBRCultureInfo) +
+                ". After the fee your balance is " + balanceAfterFee.ToString("C2", ptBRCultureInfo) + ".";
         }
     }
 }

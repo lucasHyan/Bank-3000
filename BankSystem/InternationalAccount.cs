@@ -20,6 +20,6 @@ namespace BankSystem
             protected set { _currentInternationalBalance = value; }
         }
 
-        public decimal Calculate() => CurrentBalance * _feeInternationalAccount;
+        public decimal Calculate() => _currentInternationalBalance * _feeInternationalAccount;
     }
 }

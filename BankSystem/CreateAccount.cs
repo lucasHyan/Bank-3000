@@ -81,7 +81,7 @@ namespace tp3._5
 
         public static void CreateInternationalAccount(List<BaseAccount> _accountsList)
         {
-            decimal balance = 0;
+            decimal balance = 0m;
             bool validInput = false;
             do
             {
@@ -108,11 +108,10 @@ namespace tp3._5
             InternationalAccount account = new InternationalAccount(balance);
             _accountsList.Add(account);
 
-            Console.WriteLine("Checking account created successfully.");
+            Console.WriteLine("International account created successfully.");
             Console.WriteLine("Press any key to return to the main menu.");
             Console.ReadKey();
             Console.Clear();
         }
-
     }
 }
