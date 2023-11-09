@@ -38,8 +38,7 @@ namespace tp3._5
                 Console.WriteLine("1. Create an account");
                 Console.WriteLine("2. Show Fees and Balance");
                 Console.WriteLine("3. Read Account File");
-                Console.WriteLine("4. Create Account File");
-                Console.WriteLine("5. Exit");
+                Console.WriteLine("4. Exit");
 
                 input = Console.ReadLine();
 
@@ -60,16 +59,16 @@ namespace tp3._5
                         Console.Clear();
                         return;
 
-                        case "3":
+                    case "3":
                         ArchiveManager.LoadClients();
-                        feeSystem.CalculateClientBalance(ArchiveManager.clients, ArchiveManager.GenerateConsoleLogSuccess, ArchiveManager.WriteClients);
+                        feeSystem.CalculateClientBalance(ArchiveManager.clients,
+                         ArchiveManager.WriteClients);
                         Console.ReadKey();
                         Console.Clear();
-                        Console.WriteLine(logo);
                         break;
-                        
 
-                    case "5":
+
+                    case "4":
                         Console.Clear();
                         Console.WriteLine("Exiting...");
                         Console.WriteLine("Press any key to exit.");

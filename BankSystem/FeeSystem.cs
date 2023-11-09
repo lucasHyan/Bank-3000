@@ -14,7 +14,6 @@ namespace BankSystem
         private decimal totalValueAccount;
         private decimal totalValueFee;
         public event Action<string, decimal, decimal> CreateClientArchive;
-        public Action<string> callback;
 
         public void CalculateTotalFeesAndBalance(List<BaseAccount> accounts)
         {
@@ -34,7 +33,6 @@ namespace BankSystem
         }
 
         public void CalculateClientBalance(List<Client> accounts,
-        Action<string> callback,
         Action<string, decimal, decimal> CreateClientArchive)
         {
             foreach (Client account in accounts)
@@ -45,7 +43,6 @@ namespace BankSystem
                 totalFee += account.Calculate();
                 totalValueAccount += account.CurrentBalance;
 
-                callback(account.Cpf);
                 CreateClientArchive?.Invoke(account.Cpf, totalValueAccount, totalFee);
 
             }

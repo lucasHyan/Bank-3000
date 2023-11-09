@@ -13,8 +13,6 @@ namespace tp3._5
         private static string[]? lines;
         internal static List<Client>? clients;
 
-        new FeeSystem feeSystem = new FeeSystem();
-
         public static void LoadClients()
         {
             lines = File.ReadAllLines("testeDados.txt");
@@ -33,24 +31,26 @@ namespace tp3._5
 
         public static void WriteClients(string cpf, decimal balance, decimal fee)
         {
-            if (clients != null)
-            {
-                foreach (Client client in clients)
-                {
-                    string archive = $"{Environment.CurrentDirectory}\\{cpf}.txt";
-                    if (!File.Exists(archive))
+                    string archive = $"{Environment.CurrentDirectory}/{cpf}.txt";
+                    if (File.Exists(archive))
                     {
+                        GenerateConsoleLogUnsucessfully(cpf);
                         File.Create(archive).Close();
                     }
-
-                    File.WriteAllLines(archive, new string[] { $"{balance}|{fee}" });
-                }
-            }
+                    else
+                    {
+                        File.WriteAllLines(archive, new string[] { $"{balance}|{fee}" });
+                        GenerateConsoleLogSuccess(cpf);
+                    }
         }
 
         public static void GenerateConsoleLogSuccess(string cpf)
         {
-            Console.WriteLine($"Arquivo gerado para o cpf {cpf} criado com sucesso!");
+            Console.WriteLine($"Archive {cpf}.txt created successfully.");
+        }
+        public static void GenerateConsoleLogUnsucessfully(string cpf)
+        {
+            Console.WriteLine($"Archive {cpf}.txt Has not been created.");
         }
 
     }
